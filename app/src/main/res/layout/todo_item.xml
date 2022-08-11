@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/isDoneCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ></CheckBox>
+
+    <TextView
+        android:id="@+id/todoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="4"
+        android:ellipsize="end"
+        ></TextView>
+
+    <ImageView
+        android:id="@+id/todoInfoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_info_todoitem"
+        android:layout_margin="10dp"
+        ></ImageView>
+
+</LinearLayout>

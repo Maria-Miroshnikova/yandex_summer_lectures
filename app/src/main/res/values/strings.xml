@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">view_homework</string>
+
+    <string name="count_item_done_text">Выполнено - </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save_button">сохранить</string>
+    <string name="todo_edittext_hint">Что надо сделать...</string>
+    <string name="todo_importance_header">Важность</string>
+
+    <string-array name="importance_spinner_vars">
+        <item>Нет</item>
+        <item>Низкая</item>
+        <item>!! Высокая</item>
+    </string-array>
+
+    <string name="todo_deadline_header">Сделать до</string>
+    <string name="todo_delete_button">Удалить</string>
+</resources>
