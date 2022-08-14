@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.learn.view_homework.R
 import com.learn.view_homework.data_models.TodoItem
-import com.learn.view_homework.view_models.TodoListViewModel
+//import com.learn.view_homework.view_models.TodoListViewModel
 import android.text.Spannable
 
 import android.graphics.Color
@@ -19,40 +19,23 @@ import android.graphics.Color
 import android.text.style.ForegroundColorSpan
 
 import android.text.SpannableString
+import com.learn.view_homework.view_models.TodoViewModel
 
-
-
-
-class TodoListAdapter(val viewModel: TodoListViewModel, val context: Context?) :
+// observe List и при обновлении - adapter.setData!
+// но действия со списком сами влияют на livedata
+// придется перерисовывать список каждый раз?
+// тогда точно diffutil
+class TodoListAdapter(/*val viewModel: TodoListViewModel,*/
+                        val viewModel: TodoViewModel,
+                        val context: Context?) :
     RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
 
     var listTodo: List<TodoItem> = ArrayList<TodoItem>()
 
     class TodoViewHolder(itemView : View)
-        : RecyclerView.ViewHolder(itemView) {//,
-         // View.OnClickListener  {
+        : RecyclerView.ViewHolder(itemView) {
         val isDonecheckBox : CheckBox = itemView.findViewById(R.id.isDoneCheckBox)
         val todoTextView : TextView = itemView.findViewById(R.id.todoTextView)
-/*
-        init {
-            isDonecheckBox.setOnClickListener(this)/*(object: View.OnClickListener{
-                override fun onClick(v : View)
-                {
-                    onChangeTodoItemStatusListener.onChanged()
-                }
-
-            })*/
-            todoTextView.setOnClickListener(this)/*(object: View.OnClickListener {
-                override fun onClick(v: View?) {
-                    TODO("Not yet implemented")
-                }
-
-            })*/
-        }
-
-        override fun onClick(v: View?) {
-            TODO("Not yet implemented")
-        }*/
     }
 
     override fun getItemCount(): Int {
@@ -88,20 +71,20 @@ class TodoListAdapter(val viewModel: TodoListViewModel, val context: Context?) :
         holder.isDonecheckBox.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 val idx = holder.adapterPosition
-                viewModel.checkItem(idx)
+                //viewModel.checkItem(idx)
+                var item = listTodo[idx]
+                item.isDone = !item.isDone
+                viewModel.changeItem(item)
             }
         })
 
         holder.todoTextView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val idx = holder.adapterPosition
-                //viewModel.itemToEdit.postValue(listTodo[idx])
-               // var item = viewModel.itemToEdit.value
-                //Log.i("WHERE:", "Adapter change item")
+              //  viewModel.itemToEditWasUpdated = true
+              //  viewModel.setItemToEdit(idx)
                 viewModel.itemToEditWasUpdated = true
-                viewModel.setItemToEdit(idx)
-            //   val item = viewModel.itemToEdit.value
-               // viewModel.idxToEdit.value = idx
+                viewModel.itemToEdit.value = listTodo[idx]
             }
         })
     }

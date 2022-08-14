@@ -14,9 +14,6 @@
             android:id="@+id/action_todoListFragment_to_newOrEditTodoItemFragment"
             app:destination="@id/newOrEditTodoItemFragment">
         </action>
-        <action
-            android:id="@+id/action_todoListFragment_to_blankFragment"
-            app:destination="@id/blankFragment" />
     </fragment>
     <fragment
         android:id="@+id/newOrEditTodoItemFragment"
@@ -31,14 +28,5 @@
             android:name="IsToCreateNew"
             app:argType="boolean" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.learn.view_homework.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" >
-        <action
-            android:id="@+id/action_blankFragment_to_todoListFragment"
-            app:destination="@id/todoListFragment" />
     </fragment>
 </navigation>

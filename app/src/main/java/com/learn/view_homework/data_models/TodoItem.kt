@@ -1,7 +1,10 @@
 package com.learn.view_homework.data_models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity
 data class TodoItem(var text: String, var importenceStatus: IMPORTANCE_STATUS,  val creationDate : Date?) {
 
     enum class IMPORTANCE_STATUS {
@@ -38,16 +41,13 @@ data class TodoItem(var text: String, var importenceStatus: IMPORTANCE_STATUS,  
         }
     }
 
-    var id: String = ""
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null
 
-    var updatingDate : Date? = null
+//    var updatingDate : Date? = null
 
     var deadline: Date? = null
 
     var isDone: Boolean = false
-
-//    init {
- //       id = (1000..10000).random().toString()
-  //  }
 
 }
