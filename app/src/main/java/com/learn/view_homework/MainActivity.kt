@@ -7,7 +7,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.learn.view_homework.data_models.TodoItemRepository
+import com.learn.view_homework.repository.UpdateRepositoryWorker
+import java.util.concurrent.TimeUnit
 
 public class MainActivity : AppCompatActivity() {
 
@@ -21,9 +25,17 @@ public class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val fragment = findViewById<FragmentContainerView>(R.id.fragment_container_view)
-//        var navController =  findNavController(R.id.fragment_container_view_host)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view_host) as NavHostFragment
+       val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view_host) as NavHostFragment
         navController = navHostFragment.navController
+
+        val request = PeriodicWorkRequestBuilder<UpdateRepositoryWorker>(
+            repeatInterval = 8,
+            repeatIntervalTimeUnit = TimeUnit.HOURS,
+            flexTimeInterval = 25,
+            flexTimeIntervalUnit = TimeUnit.MINUTES
+        ).build()
+
+        val workManager = WorkManager.getInstance(this)
+        workManager.enqueue(request)
     }
 }

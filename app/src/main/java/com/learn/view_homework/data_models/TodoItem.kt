@@ -1,11 +1,17 @@
 package com.learn.view_homework.data_models
 
+import androidx.lifecycle.GeneratedAdapter
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.*
 
 @Entity
-data class TodoItem(var text: String, var importenceStatus: IMPORTANCE_STATUS,  val creationDate : Date?) {
+@JsonClass(generateAdapter = true)
+data class TodoItem(@Json(name = "text") var text: String,
+                    @Json(name = "importance") var importenceStatus: IMPORTANCE_STATUS,
+                    @Json(name = "created_at") val creationDate : Date?) {
 
     enum class IMPORTANCE_STATUS {
         LOW,
@@ -42,12 +48,12 @@ data class TodoItem(var text: String, var importenceStatus: IMPORTANCE_STATUS,  
     }
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    @Json(name = "id") var id: Int? = null
 
 //    var updatingDate : Date? = null
 
-    var deadline: Date? = null
+    @Json(name = "deadline") var deadline: Date? = null
 
-    var isDone: Boolean = false
+    @Json(name = "done") var isDone: Boolean = false
 
 }
