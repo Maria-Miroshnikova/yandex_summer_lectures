@@ -19,6 +19,7 @@ import android.graphics.Color
 import android.text.style.ForegroundColorSpan
 
 import android.text.SpannableString
+import androidx.core.view.ViewCompat
 import com.learn.view_homework.view_models.TodoViewModel
 
 // observe List и при обновлении - adapter.setData!
@@ -83,6 +84,7 @@ class TodoListAdapter(/*val viewModel: TodoListViewModel,*/
                 val idx = holder.adapterPosition
               //  viewModel.itemToEditWasUpdated = true
               //  viewModel.setItemToEdit(idx)
+                ViewCompat.setTransitionName(v!!, "todo_item_in_list")
                 viewModel.itemToEditWasUpdated = true
                 viewModel.itemToEdit.value = listTodo[idx]
             }

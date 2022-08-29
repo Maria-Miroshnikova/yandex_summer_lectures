@@ -1,6 +1,5 @@
 package com.learn.view_homework.data_models
 
-import androidx.lifecycle.GeneratedAdapter
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json

@@ -14,7 +14,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
 
     abstract fun todoItemDao(): TodoItemDao
 
-    companion object {
+  /*  companion object {
         var INSTANCE: AppRoomDatabase? = null
 
         fun getAppDataBase(context: Context): AppRoomDatabase {
@@ -29,5 +29,5 @@ abstract class AppRoomDatabase : RoomDatabase() {
                 instance
             }
         }
-    }
+    }*/
 }

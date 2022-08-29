@@ -25,10 +25,10 @@ class MyInterceptor : Interceptor {
             ++retry_count
         }
 
-        when(response.code() % 100) {
+        when(response.code % 100) {
             // Client errors:
             4 -> {
-                when (response.code()) {
+                when (response.code) {
                     // Authorization
                     401 -> {
                         val newToken: String = "" // TODO
@@ -40,7 +40,7 @@ class MyInterceptor : Interceptor {
                         }
                     }
                     else -> {
-                        if (newRequest.method() == "GET")
+                        if (newRequest.method == "GET")
                         {
                             Log.wtf("Interceptor Error", "Get request if failed")
                         }

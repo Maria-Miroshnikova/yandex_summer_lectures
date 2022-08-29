@@ -10,6 +10,9 @@ interface TodoItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTodo(item: TodoItem)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(items: List<TodoItem>)
+
     @Update
     suspend fun updateTodo(item: TodoItem)
 

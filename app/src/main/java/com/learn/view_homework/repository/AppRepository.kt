@@ -5,29 +5,38 @@ import android.net.Network
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.work.WorkManager
 import com.learn.view_homework.data_models.TodoItem
 import com.learn.view_homework.repository.retrofit.RepositoryRetrofit
 import com.learn.view_homework.repository.room.RepositoryRoom
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AppRepository(val connectivityManager: ConnectivityManager,
-                    val repositoryRoom: RepositoryRoom,
-                    val repositoryRetrofit: RepositoryRetrofit) : Repository {
+class AppRepository @Inject constructor (val connectivityManager: ConnectivityManager,
+                                         val repositoryRoom: RepositoryRoom,
+                                         val repositoryRetrofit: RepositoryRetrofit)
+                                        : Repository {
 
-    override val todoListFlow: Flow<List<TodoItem>> = TODO()
+    val todoListFlow: Flow<List<TodoItem>> = repositoryRoom.todoListFlow
 
     init {
-        connectivityManager.registerDefaultNetworkCallback(object :
+       /* connectivityManager.registerDefaultNetworkCallback(object :
             ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
+                val kek = coroutineScope {
+                    withContext(Dispatchers.IO) {refreshLocal()}
+                }
             }
 
             override fun onUnavailable() {
                 super.onUnavailable()
             }
-        })
+        })*/
 
 
     }
@@ -44,8 +53,15 @@ class AppRepository(val connectivityManager: ConnectivityManager,
         TODO("Not yet implemented")
     }
 
-    fun updateDB()
+    suspend fun refreshLocal()
     {
-        TODO()
+        val refreshedData = repositoryRetrofit.getTodoList()
+        repositoryRoom.addAll(refreshedData)
+    }
+
+    // TODO как часто?
+    suspend fun refreshRemote()
+    {
+        repositoryRetrofit.addAll(todoListFlow.asLiveData().value!!)
     }
 }

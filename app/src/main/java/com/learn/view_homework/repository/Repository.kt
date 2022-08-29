@@ -5,8 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    val todoListFlow: Flow<List<TodoItem>>
-
     suspend fun addItem(item: TodoItem)
 
     suspend fun changeItem(item: TodoItem)

@@ -11,13 +11,17 @@ interface TodoListApi {
      * HTTP method
      */
     @GET("list")
-    fun getTodoList(): Flow<List<TodoItem>>
+   // fun getTodoList(): Flow<List<TodoItem>>
+    suspend fun getTodoList(): List<TodoItem>
 
     @GET("list/{id}")
     suspend fun getTodoItem(@Path("id") id: Int) : TodoItem
 
     @POST("list")
     suspend fun postTodoItem(@Body item: TodoItem)
+
+    @POST("list")
+    suspend fun postAll(@Body items: List<TodoItem>)
 
     // TODO
     @PUT("list/{id}")

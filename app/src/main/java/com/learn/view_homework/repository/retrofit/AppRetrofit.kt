@@ -1,6 +1,7 @@
 package com.learn.view_homework.repository.retrofit
 
 import android.util.Log
+import com.learn.view_homework.MainActivity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
@@ -9,27 +10,34 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object AppRetrofit {
+@Singleton
+class AppRetrofit @Inject constructor(private val client: OkHttpClient,
+                                      private val BASE_URL: String,
+                                      private val retrofit: Retrofit,
+                                      val todoListApi: TodoListApi,
+                                      val loginApi: LoginApi) {
 
-    val client: OkHttpClient = OkHttpClient().newBuilder()
-        .addInterceptor(MyInterceptor())
-        .build()
+  /*  @Inject
+    lateinit var client: OkHttpClient
 
-    private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    @Inject
+    lateinit var moshi: Moshi
 
-    private val BASE_URL = ""
+    @Inject
+    lateinit var BASE_URL: String
 
-    private val retrofit = Retrofit.Builder()
-        .client(client)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(BASE_URL)
-        .build()
+    @Inject
+    lateinit var retrofit: Retrofit
 
-   val todoListApi : TodoListApi by lazy { retrofit.create(TodoListApi::class.java) }
+    @Inject
+    lateinit var todoListApi: TodoListApi
 
-    val loginApi : LoginApi by lazy { retrofit.create(LoginApi::class.java)}
+    @Inject
+    lateinit var loginApi: LoginApi*/
+
+        // TODO inject
 
 }
